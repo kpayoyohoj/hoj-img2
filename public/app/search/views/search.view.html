@@ -1,0 +1,71 @@
+<div class="container spacer">
+
+    <div class="row">
+        <div class="column-1">
+            <h2 class="clean-header">
+                Search
+                <a><span ng-click="search.logout()" class="icon-exit right margin-left-small pointer"></span></a>
+            </h2>
+            <div class="input-group">
+                <input
+                    ng-keyup="$event.keyCode == 13 ? search.performSearch() : null"
+                    ng-model="search.searchTerm"
+                    class="input-xlarge"
+                    type="text"
+                    placeholder="Product ID, or Partial Name">
+                <span class="input-group-button">
+                    <button
+                        ng-click="search.performSearch()"
+                        class="button button-xlarge info"
+                        type="submit">
+                        Search
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<br/><br/>
+<div class="container main-img-sed">
+    <div
+        ng-if="search.loading"
+        class="row">
+        <div class="column-1-2 column-center">
+            <img class="center-block" src="assets/images/hex-loader2.gif"/>
+        </div>
+    </div>
+
+    <div
+        ng-if="!search.loading"
+        class="row">
+        <div
+            ng-show="search.results.length > 0"
+            ng-repeat="file in search.results"
+            class="col-sm-4">
+            <div class="thumbnail">
+                <img
+                    ng-mouseenter="hover = true"
+                    ng-mouseleave="hover = false"
+                    class="thumbnail-image"
+                    ng-src="{{::file.thumbnailLink}}"/>
+                <div
+                    class="thumbnail-overlay"
+                    >
+                    <div class="thumbnail-label-block">
+                        <a
+                            class="button info button-small thumbnail-download-action"
+                            href="{{::file.webContentLink}}">Download</a>
+                        <a
+                            class="button info button-small thumbnail-view-action"
+                            href="{{::file.webViewLink}}">View</a>
+                        <a
+                            class="button info button-small thumbnail-name-action">
+                            {{:: search.trimName(file.name) }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
